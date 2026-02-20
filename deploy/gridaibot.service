@@ -1,0 +1,19 @@
+[Unit]
+Description=GridAI Discord Bot
+After=network.target
+
+[Service]
+Type=simple
+User=gridai
+Group=gridai
+WorkingDirectory=/opt/gridaibot
+Environment="PATH=/opt/gridaibot/.venv/bin"
+EnvironmentFile=/opt/gridaibot/.env
+ExecStart=/opt/gridaibot/.venv/bin/python discord_bot.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
