@@ -4,16 +4,13 @@ After=network.target
 
 [Service]
 Type=simple
-User=gridai
-Group=gridai
+User=root
 WorkingDirectory=/opt/gridaibot
-Environment="PATH=/opt/gridaibot/.venv/bin"
+Environment=PATH=/opt/gridaibot/.venv/bin:/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 EnvironmentFile=/opt/gridaibot/.env
 ExecStart=/opt/gridaibot/.venv/bin/python discord_bot.py
 Restart=always
 RestartSec=10
-StandardOutput=journal
-StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
