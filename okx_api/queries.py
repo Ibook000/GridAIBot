@@ -1,8 +1,10 @@
 """
-OKX 查询模块
+OKX 数据查询模块
 封装 OKX 数据查询，直接返回格式化文本
 """
-from okx_client import okx_client
+from datetime import datetime
+
+from .client import okx_client
 
 
 def query_swap_positions() -> str:
@@ -195,7 +197,6 @@ def query_candlesticks(inst_id: str, bar: str = "1H", limit: int = 20) -> str:
         c = float(candle[4])
         vol = float(candle[5])
 
-        from datetime import datetime
         dt = datetime.fromtimestamp(int(ts) / 1000).strftime("%Y-%m-%d %H:%M")
 
         lines.append(f"{dt}|{o:>10.4f}|{h:>10.4f}|{l:>10.4f}|{c:>10.4f}|{vol:>12.2f}")

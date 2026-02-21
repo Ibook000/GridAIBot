@@ -5,7 +5,7 @@
 import discord
 from discord.ext import commands
 
-from okx_queries import query_grid_strategies
+from okx_api import query_grid_strategies
 
 
 class GridCog(commands.Cog):

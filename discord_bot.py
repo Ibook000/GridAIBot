@@ -29,7 +29,8 @@ class GridAIBot(commands.Bot):
             "cogs.position",
             "cogs.grid",
             "cogs.ai_chat",
-            "cogs.balance"
+            "cogs.balance",
+            "cogs.news",
         ]
 
         for cog in cogs:

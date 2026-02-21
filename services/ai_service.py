@@ -9,7 +9,7 @@ from langchain_core.messages import HumanMessage, SystemMessage, BaseMessage
 from langchain.agents import create_agent
 
 from config import LLM_BASE_URL, LLM_API_KEY, LLM_MODEL
-from tools import OKX_TOOLS
+from okx_api.tools import OKX_TOOLS
 
 
 # 系统提示词
@@ -20,8 +20,9 @@ SYSTEM_PROMPT = """你是一个专业的加密货币交易助手，有敏锐的�
 2. get_grid_strategies - 查询网格策略
 3. get_account_balance - 查询账户余额
 4. get_candlesticks - 查询K线数据，需要提供产品ID(如BTC-USDT-SWAP)、周期(如1H/4H/1D)、数量
+5. get_crypto_news - 获取加密货币新闻快讯，当用户询问新闻、快讯、行业动态时使用
 
-当用户询问持仓、网格策略、余额、K线行情等信息时，请调用相应的工具获取实时数据。
+当用户询问持仓、网格策略、余额、K线行情、新闻快讯等信息时，请调用相应的工具获取实时数据。
 
 请用中文回复，保持简洁专业。如果用户的问题与交易无关，请礼貌地说明你只能帮助处理交易相关的问题。
 """

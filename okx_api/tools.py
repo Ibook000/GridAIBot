@@ -1,15 +1,16 @@
 """
-OKX 工具模块
+OKX LangChain 工具模块
 将 OKX 操作封装为 LangChain 工具，供 AI Agent 调用
 """
 from langchain_core.tools import tool
 
-from okx_queries import (
+from .queries import (
     query_swap_positions,
     query_grid_strategies,
     query_account_balance,
     query_candlesticks,
 )
+from services.rss_service import fetch_news
 
 
 @tool
@@ -57,9 +58,23 @@ def get_candlesticks(inst_id: str, bar: str = "1H", limit: int = 20) -> str:
     return query_candlesticks(inst_id, bar, limit)
 
 
+@tool
+def get_crypto_news(limit: int = 5) -> str:
+    """
+    获取加密货币新闻快讯。
+    返回最新的加密货币行业新闻和快讯。
+    当用户询问新闻、快讯、行业动态、最新消息等信息时使用此工具。
+
+    Args:
+        limit: 返回新闻数量，默认5条
+    """
+    return fetch_news(limit=limit)
+
+
 OKX_TOOLS = [
     get_swap_positions,
     get_grid_strategies,
     get_account_balance,
     get_candlesticks,
+    get_crypto_news,
 ]

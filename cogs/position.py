@@ -5,7 +5,7 @@
 import discord
 from discord.ext import commands
 
-from okx_queries import query_swap_positions
+from okx_api import query_swap_positions
 
 
 class PositionCog(commands.Cog):

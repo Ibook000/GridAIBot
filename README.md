@@ -7,6 +7,8 @@
 - **持仓查询** - 查询 OKX 合约持仓信息
 - **网格策略** - 查询合约网格策略状态
 - **账户余额** - 查询账户资产余额
+- **K线数据** - 查询交易对K线行情
+- **新闻快讯** - 获取加密货币行业新闻
 - **AI 对话** - @机器人 进行智能对话，支持上下文记忆
 
 ## 命令列表
@@ -16,6 +18,8 @@
 | `!pos` | 查询当前合约持仓 |
 | `!grid` | 查询合约网格策略 |
 | `!bal` | 查询账户余额 |
+| `!news [数量]` | 获取加密货币新闻快讯 |
+| `!sources` | 显示可用的新闻源 |
 | `!clear` | 清除 AI 对话历史 |
 | `@机器人` | 与 AI 进行智能对话 |
 
@@ -26,6 +30,7 @@
 - **python-okx** - OKX 交易所 API
 - **LangChain** - LLM 应用框架
 - **OpenAI API** - AI 对话接口
+- **feedparser** - RSS 新闻解析
 
 ## 本地开发
 
@@ -83,7 +88,7 @@ uv run python discord_bot.py
 
 ```bash
 # 上传项目到服务器
-rsync -avz --exclude='.venv' --exclude='__pycache__' ./ user@server:/tmp/GridAIBot/
+rsync -avz --exclude='.venv' --exclude='__pycache__' --exclude='.git' ./ user@server:/tmp/GridAIBot/
 
 # 运行安装脚本
 cd /tmp/GridAIBot
@@ -118,19 +123,21 @@ GridAIBot/
 │   ├── ai_chat.py         # AI 对话功能
 │   ├── balance.py         # 余额查询
 │   ├── grid.py            # 网格策略查询
+│   ├── news.py            # 新闻快讯
 │   └── position.py        # 持仓查询
+├── okx_api/               # OKX API 模块
+│   ├── client.py          # API 客户端管理
+│   ├── queries.py         # 数据查询封装
+│   └── tools.py           # LangChain 工具
 ├── services/              # 业务服务
-│   └── ai_service.py      # AI 服务封装
-├── tools/                 # 工具模块
-│   └── okx_tools.py       # OKX API 工具
+│   ├── ai_service.py      # AI 服务封装
+│   └── rss_service.py     # RSS 新闻服务
 ├── deploy/                # 部署相关文件
 │   ├── gridaibot.service  # systemd 服务配置
 │   ├── install.sh         # 安装脚本
 │   └── README.md          # 部署指南
 ├── config.py              # 配置管理
 ├── discord_bot.py         # Bot 入口
-├── okx_client.py          # OKX 客户端
-├── okx_queries.py         # OKX 查询封装
 ├── pyproject.toml         # 项目配置
 └── .env.example           # 环境变量示例
 ```

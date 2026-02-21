@@ -35,8 +35,16 @@ apt install -y curl git
 echo -e "${YELLOW}[2/6] 安装 uv 包管理器...${NC}"
 if ! command -v uv &> /dev/null; then
     curl -LsSf https://astral.sh/uv/install.sh | sh
-    export PATH="$HOME/.local/bin:$PATH"
 fi
+
+# 确保 uv 在 PATH 中
+export PATH="$HOME/.local/bin:$PATH"
+if ! command -v uv &> /dev/null; then
+    echo -e "${RED}uv 安装失败，请手动安装${NC}"
+    exit 1
+fi
+
+echo -e "${GREEN}uv 已安装: $(which uv)${NC}"
 
 # 步骤 3: 创建用户和目录
 echo -e "${YELLOW}[3/6] 创建用户和目录...${NC}"
@@ -45,11 +53,9 @@ if ! id "$APP_USER" &>/dev/null; then
 fi
 
 mkdir -p "$APP_DIR"
-chown -R "$APP_USER:$APP_GROUP" "$APP_DIR"
 
 # 步骤 4: 复制项目文件
 echo -e "${YELLOW}[4/6] 复制项目文件...${NC}"
-# 假设脚本在项目目录中运行
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 
@@ -59,7 +65,20 @@ chown -R "$APP_USER:$APP_GROUP" "$APP_DIR"
 # 步骤 5: 安装 Python 依赖
 echo -e "${YELLOW}[5/6] 安装 Python 依赖...${NC}"
 cd "$APP_DIR"
-sudo -u "$APP_USER" -E bash -c "cd $APP_DIR && uv sync"
+
+# 使用 root 用户安装依赖（uv 会创建 .venv 目录）
+uv sync
+
+# 设置权限
+chown -R "$APP_USER:$APP_GROUP" "$APP_DIR"
+
+# 验证虚拟环境
+if [ ! -f "$APP_DIR/.venv/bin/python" ]; then
+    echo -e "${RED}虚拟环境创建失败${NC}"
+    exit 1
+fi
+
+echo -e "${GREEN}Python 虚拟环境已创建: $APP_DIR/.venv/bin/python${NC}"
 
 # 步骤 6: 配置 systemd 服务
 echo -e "${YELLOW}[6/6] 配置 systemd 服务...${NC}"

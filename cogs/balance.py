@@ -5,7 +5,7 @@
 import discord
 from discord.ext import commands
 
-from okx_queries import query_account_balance
+from okx_api import query_account_balance
 
 
 class BalanceCog(commands.Cog):
