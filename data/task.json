@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "id": "f6fe78ef-c060-40ea-8b57-81f70346d410",
+      "name": "每晚10:29 看盘提醒",
+      "user_id": "873506964955623434",
+      "schedule": {
+        "type": "cron",
+        "cron": "0 22 29 * *"
+      },
+      "script": "import requests\nurl = 'https://www.okx.com/api/v5/market/ticker?instId=BTC-USDT'\nresp = requests.get(url).json()\ndata = resp['data'][0] if resp.get('data') else {}\nprint(f'【波动提醒】BTC 当前价格: {data.get(\"last\", \"N/A\")} USDT，请注意看盘！')",
+      "created_at": "2026-02-24T18:07:29.654461",
+      "enabled": true
+    },
+    {
+      "id": "01f6257a-5867-4db7-a027-c4b71cc260aa",
+      "name": "BTC资金费率监控",
+      "user_id": "873506964955623434",
+      "schedule": {
+        "type": "cron",
+        "cron": "0 */4 * * *"
+      },
+      "script": "import requests\nurl = 'https://www.okx.com/api/v5/public/funding-rate?instId=BTC-USDT-SWAP'\nresp = requests.get(url).json()\ndata = resp['data'][0] if resp.get('data') else {}\ncurrent_rate = float(data.get('fundingRate', 0)) if data.get('fundingRate') else 0\nnext_rate = float(data.get('nextFundingRate', 0)) if data.get('nextFundingRate') else 0\nprint(f'''BTC-USDT 资金费率监控:\n当前资金费率: {current_rate:.6f}\n下次资金费率: {next_rate:.6f}\n更新时间: {data.get('fundingTime', 'N/A')}''')",
+      "created_at": "2026-02-24T19:07:34.763293",
+      "enabled": true
+    }
+  ]
+}

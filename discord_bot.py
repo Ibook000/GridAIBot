@@ -1,11 +1,15 @@
 """
 Discord Bot 主入口文件
 使用 Cogs 扩展系统，便于模块化管理命令
+支持定时任务调度
 """
+import asyncio
+
 import discord
 from discord.ext import commands
 
 from config import DISCORD_BOT_TOKEN
+from services import scheduler_service
 
 
 class GridAIBot(commands.Bot):
@@ -43,7 +47,10 @@ class GridAIBot(commands.Bot):
     async def on_ready(self):
         """
         Bot 连接成功时的回调
+        启动定时任务调度器
         """
+        await scheduler_service.start()
+
         print(f"[OK] 机器人已上线: {self.user}")
         print(f"[INFO] 命令前缀: {self.command_prefix}")
         print(f"[INFO] 已加载 {len(self.cogs)} 个命令模块")
