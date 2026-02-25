@@ -116,67 +116,6 @@ def query_grid_strategies() -> str:
     return "\n".join(lines)
 
 
-def query_martingale_strategies() -> str:
-    """
-    查询合约马丁格尔策略
-
-    Returns:
-        格式化的马丁格尔策略信息文本
-    """
-    grid_api = okx_client.grid
-    res = grid_api.grid_orders_algo_pending(algoOrdType="contract_martingale")
-    data = res.get("data", [])
-
-    if not data:
-        return "当前无运行中的合约马丁格尔策略"
-
-    state_map = {
-        "running": "运行中",
-        "paused": "已暂停",
-        "stopped": "已停止",
-    }
-
-    direction_map = {
-        "long": "做多(正向)",
-        "short": "做空(反向)",
-    }
-
-    lines = ["合约马丁格尔策略列表:"]
-    for m in data:
-        inst_id = m.get("instId", "N/A")
-        state = state_map.get(m.get("state", ""), m.get("state", ""))
-        direction = direction_map.get(m.get("direction", ""), m.get("direction", ""))
-        lever = m.get("lever", "N/A")
-        actual_lever = m.get("actualLever", "")
-        total_pnl = float(m.get("totalPnl", "0"))
-        float_profit = float(m.get("floatProfit", "0"))
-        grid_profit = float(m.get("gridProfit", "0"))
-        pnl_ratio = float(m.get("pnlRatio", "0")) * 100
-        liq_px = m.get("liqPx", "N/A")
-
-        lever_text = f"{lever}x"
-        if actual_lever:
-            try:
-                lever_text = f"{lever}x(实际{float(actual_lever):.2f}x)"
-            except ValueError:
-                pass
-
-        total_pnl_str = f"+{total_pnl:.2f}" if total_pnl >= 0 else f"{total_pnl:.2f}"
-        float_profit_str = f"+{float_profit:.2f}" if float_profit >= 0 else f"{float_profit:.2f}"
-        grid_profit_str = f"+{grid_profit:.2f}" if grid_profit >= 0 else f"{grid_profit:.2f}"
-        pnl_ratio_str = f"+{pnl_ratio:.2f}%" if pnl_ratio >= 0 else f"{pnl_ratio:.2f}%"
-
-        lines.append(
-            f"- {inst_id} ({state}):\n"
-            f"  方向: {direction}, 杠杆: {lever_text}\n"
-            f"  总盈亏: {total_pnl_str} USDT, 浮动盈亏: {float_profit_str}\n"
-            f"  已捕获收益: {grid_profit_str}, 收益率: {pnl_ratio_str}\n"
-            f"  爆仓价: {liq_px}"
-        )
-
-    return "\n".join(lines)
-
-
 def query_account_balance() -> str:
     """
     查询账户余额

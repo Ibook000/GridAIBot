@@ -337,12 +337,42 @@ class SchedulerService:
 
         print(f"[INFO] 任务执行完成: {task.name}, 结果长度: {len(result)} 字符")
 
+        # 条件判断：只有脚本输出了有意义的内容时才发送消息
+        # 排除空输出、纯空白、无输出提示等情况
+        should_send = self._should_send_message(result)
+        
+        if not should_send:
+            print(f"[INFO] 条件未满足，不发送消息: {task.name}")
+            return
+
         if self.result_callback:
             try:
                 await self.result_callback(task.user_id, task.name, result)
                 print(f"[INFO] 结果推送成功: {task.name}")
             except Exception as e:
                 print(f"[ERROR] 回调执行失败: {e}")
+
+    def _should_send_message(self, result: str) -> bool:
+        """
+        判断是否应该发送消息
+        
+        只有脚本输出了有意义的内容时才返回 True
+        """
+        if not result:
+            return False
+        
+        # 去除首尾空白后检查
+        cleaned = result.strip()
+        
+        # 空字符串
+        if not cleaned:
+            return False
+        
+        # 默认的无输出提示
+        if cleaned in ["脚本执行完成，无输出", "无"]:
+            return False
+        
+        return True
 
     async def start(self):
         """启动调度器"""
