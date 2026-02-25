@@ -32,6 +32,7 @@ class GridAIBot(commands.Bot):
         cogs = [
             "cogs.position",
             "cogs.grid",
+            "cogs.martingale",
             "cogs.ai_chat",
             "cogs.balance",
             "cogs.news",

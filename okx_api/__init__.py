@@ -8,6 +8,7 @@ from .client import OKXClient, okx_client
 from .queries import (
     query_swap_positions,
     query_grid_strategies,
+    query_martingale_strategies,
     query_account_balance,
     query_candlesticks,
 )
@@ -17,6 +18,7 @@ __all__ = [
     "okx_client",
     "query_swap_positions",
     "query_grid_strategies",
+    "query_martingale_strategies",
     "query_account_balance",
     "query_candlesticks",
 ]

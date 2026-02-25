@@ -7,6 +7,7 @@ from langchain_core.tools import tool
 from .queries import (
     query_swap_positions,
     query_grid_strategies,
+    query_martingale_strategies,
     query_account_balance,
     query_candlesticks,
 )
@@ -31,6 +32,16 @@ def get_grid_strategies() -> str:
     当用户询问网格策略、网格交易、网格机器人等信息时使用此工具。
     """
     return query_grid_strategies()
+
+
+@tool
+def get_martingale_strategies() -> str:
+    """
+    查询合约马丁格尔策略信息。
+    返回所有运行中的合约马丁格尔策略详情，包括方向、杠杆、总盈亏、已捕获收益等。
+    当用户询问马丁格尔策略、马丁策略、合约马丁格尔等信息时使用此工具。
+    """
+    return query_martingale_strategies()
 
 
 @tool
@@ -74,6 +85,7 @@ def get_crypto_news(limit: int = 5) -> str:
 OKX_TOOLS = [
     get_swap_positions,
     get_grid_strategies,
+    get_martingale_strategies,
     get_account_balance,
     get_candlesticks,
     get_crypto_news,
