@@ -58,8 +58,17 @@ echo -e "${GREEN}代码已更新${NC}"
 echo ""
 echo -e "${YELLOW}[3/4] 安装依赖...${NC}"
 if [ -f "pyproject.toml" ]; then
-    uv sync
-    echo -e "${GREEN}依赖已更新${NC}"
+    # 检查uv是否可用
+    if command -v uv &> /dev/null; then
+        uv sync
+        echo -e "${GREEN}依赖已更新 (uv)${NC}"
+    elif command -v pip &> /dev/null; then
+        # 使用pip作为备选方案
+        pip install -r requirements.txt 2>/dev/null || pip install -e . 2>/dev/null || echo -e "${YELLOW}未找到依赖文件，跳过${NC}"
+        echo -e "${GREEN}依赖已更新 (pip)${NC}"
+    else
+        echo -e "${RED}未找到 uv 或 pip，无法安装依赖${NC}"
+    fi
 else
     echo -e "${YELLOW}未找到 pyproject.toml，跳过依赖安装${NC}"
 fi
