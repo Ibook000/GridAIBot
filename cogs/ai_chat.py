@@ -139,12 +139,14 @@ class AIChatCog(commands.Cog):
                     return
 
             schedule_task["script"] = script
+            max_runs = schedule_task.get("max_runs", 0)
             task = ScheduledTask(
                 str(uuid.uuid4()),
                 schedule_task["task_name"],
                 user_id,
                 schedule_task["schedule"],
                 schedule_task["script"],
+                max_runs=max_runs,
             )
 
             print(f"[INFO] 添加任务到调度器...")

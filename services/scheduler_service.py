@@ -37,6 +37,8 @@ class ScheduledTask:
         script: str,
         created_at: Optional[str] = None,
         enabled: bool = True,
+        max_runs: int = 0,
+        run_count: int = 0,
     ):
         self.id = task_id
         self.name = name
@@ -46,6 +48,8 @@ class ScheduledTask:
         self.script_file = str(TASK_SCRIPT_DIR / f"{task_id}.py")
         self.created_at = created_at or datetime.now().isoformat()
         self.enabled = enabled
+        self.max_runs = max_runs
+        self.run_count = run_count
 
     def save_script(self):
         """保存脚本到文件"""
@@ -77,6 +81,8 @@ class ScheduledTask:
             "script": self.script,
             "created_at": self.created_at,
             "enabled": self.enabled,
+            "max_runs": self.max_runs,
+            "run_count": self.run_count,
         }
 
     @classmethod
@@ -90,6 +96,8 @@ class ScheduledTask:
             script=data.get("script", ""),
             created_at=data.get("created_at"),
             enabled=data.get("enabled", True),
+            max_runs=data.get("max_runs", 0),
+            run_count=data.get("run_count", 0),
         )
         task.script = task.load_script()
         return task
@@ -343,6 +351,21 @@ class SchedulerService:
         
         if not should_send:
             print(f"[INFO] 条件未满足，不发送消息: {task.name}")
+            return
+
+        # 执行次数 +1
+        task.run_count += 1
+        self._save_tasks()
+        print(f"[INFO] 任务已执行 {task.run_count}/{task.max_runs} 次: {task.name}")
+
+        # 检查是否达到执行次数上限
+        if task.max_runs > 0 and task.run_count >= task.max_runs:
+            print(f"[INFO] 任务已达到执行次数上限 ({task.max_runs} 次)，自动移除: {task.name}")
+            if self.scheduler:
+                self.scheduler.remove_job(task_id)
+            task.delete_script()
+            self.tasks.pop(task_id, None)
+            self._save_tasks()
             return
 
         if self.result_callback:
