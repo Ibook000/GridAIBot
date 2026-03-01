@@ -30,6 +30,23 @@
 - **OpenAI API** - AI 对话接口
 - **feedparser** - RSS 新闻解析
 
+## 项目架构图
+
+### 系统架构图
+![系统架构图](docs/images/system-architecture.png)
+
+### 消息处理流程图
+![消息处理流程图](docs/images/message-flow.png)
+
+### 模块依赖关系图
+![模块依赖关系图](docs/images/module-dependency.png)
+
+### 命令功能分类图
+![命令功能分类图](docs/images/command-classification.png)
+
+### 类与组件关系图
+![类与组件关系图](docs/images/class-relationship.png)
+
 ## 本地开发
 
 ### 环境要求
