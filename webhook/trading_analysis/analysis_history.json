@@ -1,47 +1,47 @@
 [
   {
-    "date": "2026-03-04 16:22:18",
+    "date": "2026-03-04 17:24:50",
     "symbol": "BTC-USDT-SWAP",
     "prediction": "偏多",
     "confidence": "中",
-    "reason": "技术面：1H/4H/1D 均线系统呈多头排列，价格站稳 69000 关口，RSI 处于 53-62 健康区间，未现超买信号，布林带向上开口提供动能。消息面：BTC 突破关键阻力及巨鲸大额买入 ETH 提振市场情绪，但油价上涨带来宏观通胀担忧，且周线仍为负收益，压制上方空间。综合判断短期有望挑战 70000 整数关口及日线布林上轨。",
-    "target_price_range": "$69,800 - $70,300",
-    "risk_level": "中",
-    "current_price": 69277.8,
-    "weekly_change": -2.74,
+    "reason": "技术面：1H/4H/1D 均线呈多头排列，价格站稳 71000 关口，日线 RSI 57 仍有上行空间。但 1H/4H RSI 超买（75.16/68.76）且价格突破布林带上轨（115%/113%），短期存在回调压力。消息面：空头爆仓 1.2 亿美元主导近期波动，显示空头挤压推动上涨，动能强劲但需警惕获利回吐。周线跌幅 -5.24% 表明当前为反弹行情，整体趋势向好但波动加剧。",
+    "target_price_range": "$70000 - $72500",
+    "risk_level": "高",
+    "current_price": 71102.8,
+    "weekly_change": -5.24,
     "timeframes": {
       "1H": {
-        "current_price": 69263.6,
-        "ma5": 68622.22,
-        "ma10": 68382.05,
-        "ma20": 68139.49,
-        "rsi": 58.17,
-        "bollinger_upper": 69422.05,
-        "bollinger_middle": 68139.49,
-        "bollinger_lower": 66856.93,
-        "bollinger_position": 93.82
+        "current_price": 71113.6,
+        "ma5": 69639.62,
+        "ma10": 68836.61,
+        "ma20": 68436.54,
+        "rsi": 75.16,
+        "bollinger_upper": 70467.66,
+        "bollinger_middle": 68436.54,
+        "bollinger_lower": 66405.43,
+        "bollinger_position": 115.9
       },
       "4H": {
-        "current_price": 69268.4,
-        "ma5": 68620.32,
-        "ma10": 68308.04,
-        "ma20": 67612.48,
-        "rsi": 62.32,
-        "bollinger_upper": 69947.47,
-        "bollinger_middle": 67612.48,
-        "bollinger_lower": 65277.48,
-        "bollinger_position": 85.46
+        "current_price": 71116.7,
+        "ma5": 68989.98,
+        "ma10": 68492.87,
+        "ma20": 67704.89,
+        "rsi": 68.76,
+        "bollinger_upper": 70411.47,
+        "bollinger_middle": 67704.89,
+        "bollinger_lower": 64998.31,
+        "bollinger_position": 113.03
       },
       "1D": {
-        "current_price": 69277.8,
-        "ma5": 67532.02,
-        "ma10": 66801.58,
-        "ma20": 67408.01,
-        "rsi": 53.76,
-        "bollinger_upper": 70338.08,
-        "bollinger_middle": 67408.01,
-        "bollinger_lower": 64477.95,
-        "bollinger_position": 81.91
+        "current_price": 71102.8,
+        "ma5": 67897.02,
+        "ma10": 66984.08,
+        "ma20": 67499.26,
+        "rsi": 57.39,
+        "bollinger_upper": 70752.42,
+        "bollinger_middle": 67499.26,
+        "bollinger_lower": 64246.11,
+        "bollinger_position": 105.39
       }
     }
   }

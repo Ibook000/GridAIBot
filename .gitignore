@@ -16,6 +16,8 @@ parts/
 sdist/
 var/
 data
+webhook/config.env
+webhook/trading_analysis/
 wheels/
 *.egg-info/
 .installed.cfg
@@ -38,7 +40,7 @@ env/
 .env
 discord.txt
 okx.txt
-
+config.env
 # OS
 .DS_Store
 Thumbs.db

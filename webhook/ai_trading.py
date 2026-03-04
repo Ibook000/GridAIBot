@@ -25,8 +25,10 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from pydantic import SecretStr
 
-load_dotenv()
-
+# 加载 webhook 目录下的配置文件
+webhook_dir = Path(__file__).parent
+load_dotenv(webhook_dir / "config.env")
+sys.path.insert(0, str(webhook_dir))
 import config
 
 # ==================== 配置 ====================
@@ -46,8 +48,8 @@ ANALYSIS_TIME = config.TRADING_ANALYSIS_TIME
 # OKX API
 OKX_BASE_URL = "https://www.okx.com"
 
-# 数据存储路径
-DATA_DIR = Path("webhook/trading_analysis")
+# 数据存储路径（相对于 webhook 目录）
+DATA_DIR = Path(__file__).parent / "trading_analysis"
 HISTORY_FILE = DATA_DIR / "analysis_history.json"
 
 # ==================== LLM 客户端 ====================
