@@ -1,0 +1,16 @@
+[Unit]
+Description=AI Trading Analysis Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/GridAIBot
+ExecStart=/opt/GridAIBot/.venv/bin/python /opt/GridAIBot/webhook/ai_trading.py
+Restart=always
+RestartSec=10
+StandardOutput=append:/opt/GridAIBot/webhook/trading_analysis/daemon.log
+StandardError=append:/opt/GridAIBot/webhook/trading_analysis/daemon.log
+
+[Install]
+WantedBy=multi-user.target

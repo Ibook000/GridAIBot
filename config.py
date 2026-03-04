@@ -23,3 +23,10 @@ OKX_FLAG = os.getenv("OKX_FLAG", "0")
 LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://apis.iflow.cn/v1")
 LLM_API_KEY = os.getenv("LLM_API_KEY", "")
 LLM_MODEL = os.getenv("LLM_MODEL", "qwen3-max")
+
+# Discord Webhook
+DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL", "")
+
+# 交易分析配置
+TRADING_SYMBOLS = os.getenv("TRADING_SYMBOLS", "BTC-USDT-SWAP").split(",")
+TRADING_ANALYSIS_TIME = os.getenv("TRADING_ANALYSIS_TIME", "09:00")
